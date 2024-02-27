@@ -22,7 +22,6 @@ except ImportError:
 
 from megatron.tokenizer import build_tokenizer
 from megatron.core.datasets import indexed_dataset
-from megatron.data.indexed_dataset import best_fitting_dtype
 
 
 # https://stackoverflow.com/questions/33139531/preserve-empty-lines-with-nltks-punkt-tokenizer
