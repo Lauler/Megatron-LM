@@ -1254,6 +1254,10 @@ def _add_data_args(parser):
 
     group.add_argument('--vocab-size', type=int, default=None,
                        help='Size of vocab before EOD or padding.')
+    group.add_argument('--pad-vocab-size-to', type=int, default=None,
+                       help='Pad the vocab size to this value.'
+                       'This value must be greater than the initial size of the tokenizer'
+                       ', needs to be divisible by TP size and `make-vocab-size-divisible-by`.')
     group.add_argument('--vocab-file', type=str, default=None,
                        help='Path to the vocab file.')
     group.add_argument('--merge-file', type=str, default=None,
@@ -1288,8 +1292,11 @@ def _add_data_args(parser):
                                 'SentencePieceTokenizer',
                                 'GPTSentencePieceTokenizer',
                                 'Llama2Tokenizer',
+                                'PretrainedFromHF',
                                 'NullTokenizer'],
                        help='What type of tokenizer to use.')
+    group.add_argument("--tokenizer-name-or-path", type=str, default=None,
+                       help="Name or path of the huggingface tokenizer.")
     group.add_argument('--tokenizer-model', type=str, default=None,
                        help='Sentencepiece tokenizer model.')
     group.add_argument('--reset-position-ids', action='store_true',
