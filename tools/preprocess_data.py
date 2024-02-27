@@ -22,6 +22,7 @@ except ImportError:
 
 from megatron.tokenizer import build_tokenizer
 from megatron.core.datasets import indexed_dataset
+from megatron.data.indexed_dataset import best_fitting_dtype
 
 
 # https://stackoverflow.com/questions/33139531/preserve-empty-lines-with-nltks-punkt-tokenizer
@@ -201,10 +202,20 @@ def get_args():
                        choices=['BertWordPieceLowerCase','BertWordPieceCase',
                                 'GPT2BPETokenizer', 'SentencePieceTokenizer',
                                 'GPTSentencePieceTokenizer', 'Llama2Tokenizer',
-                                'NullTokenizer'],
+                                'PretrainedFromHF', 'NullTokenizer'],
                        help='What type of tokenizer to use.')
     group.add_argument('--tokenizer-model', type=str, default=None,
                        help='YTTM tokenizer model.')
+    group.add_argument("--tokenizer-name-or-path", type=str, default=None,
+                       help="Name or path of the huggingface tokenizer.")
+    group.add_argument('--make-vocab-size-divisible-by', type=int, default=128,
+                       help='Pad the vocab size to be divisible by this value.'
+                            'This is added for computational efficieny reasons.')
+    group.add_argument('--pad-vocab-size-to', type=int, default=None,
+                       help='Pad the vocab size to be divisible by this value.'
+                            'Value of the size of the vocabulary of the tokenizer to reach. This value must be greater than'
+                            ' the initial size of the tokenizer. If this argument is used the value of '
+                            '`make-vocab-size-divisible-by` will be ignored.')
     group.add_argument('--vocab-file', type=str, default=None,
                        help='Path to the vocab file')
     group.add_argument('--vocab-size', default=786,
