@@ -320,7 +320,7 @@ class _GPT2BPETokenizer(MegatronTokenizer):
     def eod(self):
         return self.eod_id
 
-class _AutoTokenizer(AbstractTokenizer):
+class _AutoTokenizer(MegatronTokenizer):
     """AutoTokenizer for Hf Pretrained model loading."""
 
     def __init__(self, tokenizer_name_or_path, vocab_extra_ids):
